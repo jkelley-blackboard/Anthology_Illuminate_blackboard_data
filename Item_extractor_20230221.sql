@@ -8,6 +8,7 @@
 */
 
 SELECT
+  term.name AS term,
   crs.stage['batch_uid']::string AS external_course_key,
   crs.course_number AS course_id,
   per.stage['batch_uid']::string AS external_person_key,
@@ -20,6 +21,7 @@ SELECT
 FROM CDM_LMS.person_course pcr
    JOIN CDM_LMS.person per ON per.id = pcr.person_id
    JOIN CDM_LMS.course crs ON crs.id = pcr.course_id
+   LEFT JOIN CDM_LMS.term term ON term.id = crs.term_id
    LEFT JOIN (                     --change to regular JOIN to filter out nulls                   
      SELECT                        --subquery to get grade data
        grd.person_course_id,
@@ -37,6 +39,7 @@ FROM CDM_LMS.person_course pcr
 WHERE pcr.enabled_ind                         --filter out disabled (dropped) enrollements
   AND per.stage['user_id']::string NOT LIKE '%_previewuser'
   AND pcr.course_role_desc = 'Student'       
-  AND crs.course_number like 'AST_101_%'      --course ID filter
+  AND crs.course_number like '%BIO101%'      --course ID filter
+  AND term.name = '2023 Spring'              --term name filter
 
 ORDER BY crs.course_number DESC
