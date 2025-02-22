@@ -3,6 +3,7 @@
 
 -- for a group of courses, provide instructors, time spent grading, count of students, grade items and grades.
 -- reminder: most original course start with two columns, ultra courses start with zero
+-- 2025 update:  Instructor grading interactions (tool_source_id = 'instructor_gradebook') only valid for original courses
 
 
 SELECT 
