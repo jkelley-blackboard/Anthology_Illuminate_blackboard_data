@@ -1,6 +1,6 @@
-# blackboard_data  (Anthology Illuminate)
+# Anthology Illuminate
 Resources</br>
-- Anthology Illuminate Developers User Group: https://community.anthology.com/groups/home/127
+- NEW Anthology Illuminate Developers User Group: https://community.anthology.com/home/clubs/illuminate-developers-user-group/overview
 - Illuminate Help: https://help.blackboard.com/Anthology_Illuminate
 - Bb Developer Network SQL Repository: https://github.com/blackboard/BBDN-BlackboardData-Queries
 - ChatGPT Project: https://chatgpt.com/g/g-67b0b8c0b1d4819186026bdcdcc78aa1-blackboard-data-illuminate-ai-developer
