@@ -1,7 +1,6 @@
 # Anthology Illuminate – SQL Resources
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![License](https://img.shields.io/badge/license-none-lightgrey)
 ![Platform](https://img.shields.io/badge/platform-Anthology%20Illuminate-blue)
 
 **Author:** jeff.kelley@anthology.com  
@@ -43,4 +42,4 @@ This is a personal project and not actively maintained for public contributions.
 
 ## 📄 License
 
-These resources are provided **without warranty or support** and are intended for educational and exploratory use only.
+These resources are provided **without warranty or support** and are intended for educational and exploratory use only. Anthology retains rights.
