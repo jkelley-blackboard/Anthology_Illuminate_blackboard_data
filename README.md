@@ -1,15 +1,46 @@
-# Anthology Illuminate
-Resources</br>
-- NEW Anthology Illuminate Developers User Group: https://community.anthology.com/home/clubs/illuminate-developers-user-group/overview
-- Illuminate Help: https://help.blackboard.com/Anthology_Illuminate
-- Bb Developer Network SQL Repository: https://github.com/blackboard/BBDN-BlackboardData-Queries
-- ChatGPT Project: https://chatgpt.com/g/g-67b0b8c0b1d4819186026bdcdcc78aa1-blackboard-data-illuminate-ai-developer
+# Anthology Illuminate – SQL Resources
 
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![License](https://img.shields.io/badge/license-none-lightgrey)
+![Platform](https://img.shields.io/badge/platform-Anthology%20Illuminate-blue)
 
-My own variations of SQL for Anthology Illuminate (formerly Blackboard Data) inquiries.</br>
-These are provided without warranty or support from Anthology
+**Author:** jeff.kelley@anthology.com  
+**Disclaimer:** Provided without support or warranty  
 
- - collaborate_recording_report_20220908 = output like standard recording report, augmented with course info and instructor usernames</br>
- - Item_extractor_20230221 = get grade data for select item accross courses
- - gradecenter_use_20230317.sql = grading stats for a group of courses, instructor grade activity, count of items and grades
- - AI_conversations.sql = a list of instructors using AI Conversations and a count of their use
+---
+
+## 📘 Overview
+
+This repository contains personal variations of SQL queries for exploring and analyzing data in **Anthology Illuminate** (formerly Blackboard Data). These queries are designed to support reporting, diagnostics, and insight generation across various aspects of the LMS.
+
+> ⚠️ These examples are shared as-is and may require adaptation for your institution’s data model or permissions.
+
+---
+
+## 🔗 Helpful Resources
+
+Here are some useful links for working with **Anthology Illuminate** and Blackboard Data:
+
+- 🧑‍💻 [Illuminate Developers User Group](https://community.anthology.com/home/clubs/illuminate-developers-user-group/overview)  
+  Join the club on Anthology Community to connect with other Illuminate developers.
+
+- 📚 [Illuminate Help Center](https://help.blackboard.com/Anthology_Illuminate)  
+  Official documentation and support resources for Illuminate.
+
+- 💾 [Blackboard Developer Network SQL Repository](https://github.com/blackboard/BBDN-BlackboardData-Queries)  
+  Explore community-contributed SQL examples and data models.
+
+- 🤖 [ChatGPT Workspace for Blackboard Data & AI Projects](https://chatgpt.com/g/g-67b0b8c0b1d4819186026bdcdcc78aa1-blackboard-data-illuminate-ai-developer)  
+  AI-powered workspace for exploring Blackboard Data use cases.
+
+---
+
+## 🤝 Contributing
+
+This is a personal project and not actively maintained for public contributions. However, if you have suggestions or improvements, feel free to open an issue or fork the repository.
+
+---
+
+## 📄 License
+
+These resources are provided **without warranty or support** and are intended for educational and exploratory use only.
