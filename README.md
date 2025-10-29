@@ -18,7 +18,7 @@ This repository contains personal variations of SQL queries for exploring and an
 
 ## 🔗 Helpful Resources
 
-Here are some useful links for working with **Anthology Illuminate** and Blackboard Data:
+Here are some useful links for working with **Anthology Illuminate**:
 
 - 🧑‍💻 [Illuminate Developers User Group](https://community.anthology.com/home/clubs/illuminate-developers-user-group/overview)  
   Join the club on Anthology Community to connect with other Illuminate developers.
