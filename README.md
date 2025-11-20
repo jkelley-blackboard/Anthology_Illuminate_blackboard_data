@@ -20,6 +20,9 @@ This repository contains personal variations of SQL queries for exploring and an
 
 Here are some useful links for working with **Anthology Illuminate**:
 
+- 🎓 [Introduction to Illuminate LMS Data Reporting](https://bbprofessionaldevelopment.blackboard.com/webapps/consulting-central/app/launch/TDMv2?locale=en_US&course=offerings/7942b7f3-a2ba-4ac4-8ede-8f8f9c025eb9)
+  Free Blackboard Professional Development Course  
+
 - 🧑‍💻 [Illuminate Developers User Group](https://community.anthology.com/home/clubs/illuminate-developers-user-group/overview)  
   Join the club on Anthology Community to connect with other Illuminate developers.
 
