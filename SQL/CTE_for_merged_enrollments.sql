@@ -1,7 +1,7 @@
 
 /*
 ================================================================================
- Description:    Example CTE to get child course information on merged courses.
+ Description:    Example CTE (enrollment map) to get child course information on merged courses.
  Author:         Jeff Kelley  (jeff.kelley@anthology.com)
  Created:        2025-11-20
  License:        MIT License - Anthology retains rights
