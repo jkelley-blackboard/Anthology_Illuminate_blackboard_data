@@ -23,7 +23,7 @@ gradebook_cte AS (
     WHERE gbk.deleted_ind = 'N'
       AND gbk.row_deleted_time IS NULL
     -- Uncomment to include only final grade items:
-    -- AND gbk.final_grade_ind = true
+      AND gbk.final_grade_ind = true
 ),
 roster_cte AS (
     SELECT
@@ -47,6 +47,7 @@ grades_cte AS (
         grd.gradebook_id,
         grd.person_course_id,
         grd.score,
+        grd.possible_score,
         grd.name,
         ROUND(grd.normalized_score, 3) AS percentage
     FROM cdm_lms.grade AS grd
@@ -60,7 +61,8 @@ SELECT
     REGEXP_REPLACE(gk.gradebook_type, '\\.name$', '') AS category,
     gk.final_grade_ind,
     gk.due_time AS due_date,
-    gk.possible_score,
+    gk.possible_score as possible_score_item,
+    gr.possible_score as possible_score_user,
     gr.name AS grade,
     gr.score,
     gr.percentage
