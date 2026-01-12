@@ -15,7 +15,8 @@ gradebook_cte AS (
         gbk.name,
         gbk.gradebook_type,
         gbk.final_grade_ind,
-        gbk.possible_score
+        gbk.possible_score,
+        gbk.due_time
     FROM cdm_lms.gradebook AS gbk
     JOIN course_cte AS c
       ON gbk.course_id = c.course_id
@@ -29,7 +30,8 @@ roster_cte AS (
         pcr.id AS person_course_id,
         pcr.course_id,
         per.id AS person_id,
-        per.stage['batch_uid']::TEXT AS external_person_key
+        per.stage['batch_uid']::TEXT AS external_person_key,
+        CONCAT_WS(', ', per.last_name, per.first_name) as student_name
     FROM cdm_lms.person_course AS pcr
     JOIN cdm_lms.person AS per
       ON per.id = pcr.person_id
@@ -53,11 +55,13 @@ grades_cte AS (
 SELECT
     c.external_course_key,
     r.external_person_key,
+    r.student_name,
     gk.name AS item_name,
-    REGEXP_REPLACE(gk.gradebook_type, '\\.name$', '') as category,
+    REGEXP_REPLACE(gk.gradebook_type, '\\.name$', '') AS category,
     gk.final_grade_ind,
+    gk.due_time AS due_date,
     gk.possible_score,
-    gr.name as grade,
+    gr.name AS grade,
     gr.score,
     gr.percentage
 FROM gradebook_cte AS gk
