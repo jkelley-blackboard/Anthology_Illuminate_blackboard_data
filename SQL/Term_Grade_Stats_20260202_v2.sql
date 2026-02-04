@@ -12,7 +12,7 @@ select_courses AS (
   FROM CDM_LMS.course AS cr
   LEFT JOIN CDM_LMS.term AS tm ON tm.id = cr.term_id
   WHERE cr.row_deleted_time IS NULL  --no deleted courses
-    AND tm.name like '202 Fall%'
+    AND tm.name like '2026 Spring%'
 ),
 -- pre select members with student role, not disabled, not deleted, not preview --
 select_students AS (
@@ -53,7 +53,7 @@ select_grade_items AS (
 item_counter AS (
   SELECT
     course_id,
-    COUNT_IF(final_grade_ind = FALSE) AS non_final_item_count,
+    COUNT_IF(final_grade_ind != TRUE OR final_grade_ind IS NULL) AS non_final_item_count,
     COUNT_IF(final_grade_ind = TRUE) AS final_item_count,
   FROM select_grade_items
   GROUP BY course_id
@@ -79,7 +79,7 @@ select_grades AS (
 grade_stats AS (
   SELECT
     course_id,
-    COUNT_IF(final_grade_ind = FALSE) AS non_final_grade_cnt
+    COUNT_IF(final_grade_ind != TRUE OR final_grade_ind IS NULL) AS non_final_grade_cnt
   FROM select_grades
   GROUP BY course_id
 ),
