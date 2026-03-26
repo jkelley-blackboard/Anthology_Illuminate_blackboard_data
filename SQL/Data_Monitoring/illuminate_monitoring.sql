@@ -37,11 +37,14 @@ source_config AS (
         column3 AS small_gap_multiplier,  -- acceptable gap = expected * this
         column4 AS source_profile
     FROM VALUES
-        ('CDM_TLM.ULTRA_EVENTS',  30,   2, 'SCHEDULED_BATCH_15M'),
-        ('CDM_MEDIA.ACTIVITY',    15,   3, 'NEAR_REALTIME'),
-        ('CDM_LMS.ACTIVITY',      1440, 1, 'DAILY_ETL'),
-        ('CDM_MAP.COURSE',        120,  2, 'SCHEDULED_BATCH_2H'),
-        ('CDM_ALY.CONTENT',       720,  2, 'SCHEDULED_BATCH_12H')
+        ('CDM_TLM.ULTRA_EVENTS',          30,   2, 'SCHEDULED_BATCH_30M'),
+        ('CDM_MEDIA.ACTIVITY',            15,   3, 'NEAR_REALTIME'),
+        ('CDM_LMS.ACTIVITY',              1440, 1, 'DAILY_ETL'),
+        ('CDM_MAP.COURSE',                120,  2, 'SCHEDULED_BATCH_2H'),
+        ('CDM_ALY.CONTENT',               720,  2, 'SCHEDULED_BATCH_12H'),
+        -- LEARN schema requires Illuminate Premium. Comment out the line below
+        -- (and the matching UNION ALL block in all_events_raw) if not licensed.
+        ('LEARN.ACTIVITY_ACCUMULATOR',    240,  2, 'SCHEDULED_BATCH_4H')
 ),
 
 -- =====================================================
@@ -73,6 +76,13 @@ all_events_raw AS (
     UNION ALL
     SELECT 'CDM_ALY.CONTENT', ROW_INSERTED_TIME
     FROM cdm_aly.content
+    WHERE ROW_INSERTED_TIME >= (SELECT start_ts FROM date_window)
+
+    -- LEARN schema requires Illuminate Premium. Comment out this block
+    -- (and the matching row in source_config) if not licensed.
+    UNION ALL
+    SELECT 'LEARN.ACTIVITY_ACCUMULATOR', ROW_INSERTED_TIME
+    FROM learn.activity_accumulator
     WHERE ROW_INSERTED_TIME >= (SELECT start_ts FROM date_window)
 ),
 

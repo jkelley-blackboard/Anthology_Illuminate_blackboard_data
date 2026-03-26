@@ -21,7 +21,7 @@ Both files share the same CTE structure up through the `detail` stage. The execu
 
 The `health_status` values (`HEALTHY`, `WATCH`, `DEGRADED`) and `gap_class` classifications produced by these queries are derived entirely from insert activity observed in your Snowflake CDM tables. They reflect patterns in the data — specifically, the presence or absence of row inserts within expected time windows.
 
-**This is not a real-time system health monitor.** These queries cannot detect upstream pipeline failures, Anthology platform incidents, network issues, or any condition that does not ultimately manifest as a change in insert activity. A `DEGRADED` status means the data shows unexpected cadence as configured; it does not mean the underlying Anthology Illuminate platform is not operating normally, nor should it be used as a substitute for official monitoring or support channels.
+**This is not a real-time system health monitor.** These queries cannot detect upstream pipeline failures, Anthology platform incidents, network issues, or any condition that does not ultimately manifest as a change in insert activity. A `HEALTHY` status means inserts are arriving on the expected cadence as configured; it does not mean the underlying Anthology Illuminate platform is operating normally, nor should it be used as a substitute for official monitoring or support channels.
 
 Always verify unexpected results against the [Anthology Illuminate status page](https://status.anthology.com) and consult Anthology support for confirmed data pipeline issues.
 
@@ -66,11 +66,26 @@ Current cadences relevant to this query:
 
 | CDM | Refresh Cadence | `source_profile` used |
 |-----|----------------|-----------------------|
-| CDM\_TLM (Telemetry) | Every 30 minutes | `SCHEDULED_BATCH_15M` |
+| CDM\_TLM (Telemetry) | Every 30 minutes | `SCHEDULED_BATCH_30M` |
 | CDM\_MEDIA (Video Studio) | Near real-time | `NEAR_REALTIME` |
 | CDM\_LMS (Blackboard) | Overnight (region-dependent) | `DAILY_ETL` |
 | CDM\_MAP (Mapping) | Every 2 hours | `SCHEDULED_BATCH_2H` |
 | CDM\_ALY (Ally) | Every 12 hours | `SCHEDULED_BATCH_12H` |
+| LEARN (Blackboard source tables) ⚠️ | Every 4 hours | `SCHEDULED_BATCH_4H` |
+
+> ⚠️ **Illuminate Premium required:** The `LEARN` schema (`LEARN.ACTIVITY_ACCUMULATOR`) is only available to institutions with an Anthology Illuminate Premium licence. If you do not have Premium, the query will fail with a table-not-found error. To disable it, comment out **two** locations in each SQL file:
+>
+> **1. In `source_config`** — comment out the `LEARN.ACTIVITY_ACCUMULATOR` row:
+> ```sql
+> -- ('LEARN.ACTIVITY_ACCUMULATOR',    240,  2, 'SCHEDULED_BATCH_4H')
+> ```
+> **2. In `all_events_raw`** — comment out the matching `UNION ALL` block:
+> ```sql
+> -- UNION ALL
+> -- SELECT 'LEARN.ACTIVITY_ACCUMULATOR', ROW_INSERTED_TIME
+> -- FROM learn.activity_accumulator
+> -- WHERE ROW_INSERTED_TIME >= (SELECT start_ts FROM date_window)
+> ```
 
 > **Note:** CDM\_LMS refresh start times vary by AWS region. The `DAILY_LOAD_WINDOW` gap class in the query tolerates ±60 minutes around the 24-hour mark to account for this. Verify the correct start time for your region in the documentation above.
 
