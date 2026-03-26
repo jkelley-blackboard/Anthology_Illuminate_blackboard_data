@@ -21,7 +21,7 @@ Both files share the same CTE structure up through the `detail` stage. The execu
 
 The `health_status` values (`HEALTHY`, `WATCH`, `DEGRADED`) and `gap_class` classifications produced by these queries are derived entirely from insert activity observed in your Snowflake CDM tables. They reflect patterns in the data — specifically, the presence or absence of row inserts within expected time windows.
 
-**This is not a real-time system health monitor.** These queries cannot detect upstream pipeline failures, Anthology platform incidents, network issues, or any condition that does not ultimately manifest as a change in insert activity. A `HEALTHY` status means inserts are arriving on the expected cadence as configured; it does not mean the underlying Anthology Illuminate platform is operating normally, nor should it be used as a substitute for official monitoring or support channels.
+**This is not a real-time system health monitor.** These queries cannot detect upstream pipeline failures, Anthology platform incidents, network issues, or any condition that does not ultimately manifest as a change in insert activity. A `DEGRADED` status means the data shows unexpected cadence as configured; it does not mean the underlying Anthology Illuminate platform is not operating normally, nor should it be used as a substitute for official monitoring or support channels.
 
 Always verify unexpected results against the [Anthology Illuminate status page](https://status.anthology.com) and consult Anthology support for confirmed data pipeline issues.
 
