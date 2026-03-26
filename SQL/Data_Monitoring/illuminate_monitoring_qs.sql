@@ -1,5 +1,5 @@
 -- =============================================================================
--- Anthology Illuminate — CDM Insert Monitoring (detail only)
+-- Anthology Illuminate — CDM Insert Monitoring (QuickSight dataset variant)
 -- Copyright Blackboard, Inc. All rights reserved.
 -- Author:  jeff.kelley@blackboard.com
 -- Ref:     https://help.anthology.com/illuminate/en/anthology-illuminate-developer/
@@ -7,14 +7,22 @@
 --
 -- Provided as-is, without warranty. Not an Anthology product or support item.
 -- gap_class reflects observed insert cadence only — not platform health.
+--
+-- QUICKSIGHT NOTES:
+--   Intended for use as a QuickSight custom SQL dataset (Direct Query mode).
+--   Differences from illuminate_monitoring_detail.sql:
+--     - Lookback window extended to 30 days; use QuickSight date filters
+--       to narrow the visible range on dashboards
+--     - bucket_time and bucket_label display columns removed; apply date
+--       formatting natively in QuickSight field settings
 -- =============================================================================
 
 WITH parameters AS (
-    -- Tune these to adjust lookback window and time-bucket granularity
+    -- Extended to 30 days for QuickSight; use date filter controls to slice
     SELECT
-        5    AS days_back,
-        5    AS minute_bucket,   -- bucket width for grouping inserts
-        '1970-01-01'::TIMESTAMP AS epoch_ts  -- fixed epoch for deterministic bucketing
+        30   AS days_back,
+        5    AS minute_bucket,
+        '1970-01-01'::TIMESTAMP AS epoch_ts
 ),
 
 date_window AS (
@@ -37,11 +45,11 @@ source_config AS (
         column3 AS small_gap_multiplier,  -- acceptable gap = expected * this
         column4 AS source_profile
     FROM VALUES
-        ('CDM_TLM.ULTRA_EVENTS',          30,   2, 'SCHEDULED_BATCH_30M'),
-        ('CDM_MEDIA.ACTIVITY',            15,   3, 'NEAR_REALTIME'),
-        ('CDM_LMS.ACTIVITY',              1440, 1, 'DAILY_ETL'),
-        ('CDM_MAP.COURSE',                120,  2, 'SCHEDULED_BATCH_2H'),
-        ('CDM_ALY.CONTENT',               720,  2, 'SCHEDULED_BATCH_12H'),
+        ('CDM_TLM.ULTRA_EVENTS',                  30,   2, 'SCHEDULED_BATCH_30M'),
+        ('CDM_MEDIA.ACTIVITY',                    15,   3, 'NEAR_REALTIME'),
+        ('CDM_LMS.ACTIVITY',                      1440, 1, 'DAILY_ETL'),
+        ('CDM_MAP.COURSE',                        120,  2, 'SCHEDULED_BATCH_2H'),
+        ('CDM_ALY.CONTENT',                       720,  2, 'SCHEDULED_BATCH_12H'),
         -- LEARN schema requires Illuminate Premium. Comment out the line below
         -- (and the matching UNION ALL block in all_events_raw) if not licensed.
         ('LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE',    240,  2, 'SCHEDULED_BATCH_4H')
@@ -131,22 +139,13 @@ final AS (
     CROSS JOIN date_window d   -- scalar pull; date_window must remain single-row
 )
 
--- =====================================================
--- Detail output (per-bucket, per-source)
--- For executive summary + fleet rollup use illuminate_monitoring.sql
--- =====================================================
+-- bucket_time and bucket_label omitted; format bucket_ts in QuickSight field settings
 SELECT
     source_table,
     source_profile,
     new_records,
     bucket_ts,
-    TO_CHAR(bucket_ts, 'Mon DD, YYYY HH24:MI')      AS bucket_time,
-    TO_CHAR(bucket_ts, 'HH24:MI')
-        || '–' ||
-    TO_CHAR(DATEADD(minute, minute_bucket - 1, bucket_ts), 'HH24:MI')
-        AS bucket_label,
-
-    DATEDIFF(minute, prior_bucket_ts, bucket_ts)     AS minutes_since_prior_bucket,
+    DATEDIFF(minute, prior_bucket_ts, bucket_ts)  AS minutes_since_prior_bucket,
     expected_gap_minutes,
 
     CASE

@@ -10,6 +10,7 @@ Snowflake SQL queries for monitoring data freshness across Anthology Illuminate 
 |------|-------------|
 | `illuminate_monitoring.sql` | Full query including per-source executive summary and fleet-wide rollup |
 | `illuminate_monitoring_detail.sql` | Detail-only variant — one row per 5-minute bucket per source, no rollup |
+| `illuminate_monitoring_qs.sql` | QuickSight dataset variant — optimised for Direct Query, no view layer required |
 
 Both files share the same CTE structure up through the `detail` stage. The executive summary builds on top of that foundation and can be toggled off by swapping the final `SELECT` as noted in the comments.
 
@@ -19,9 +20,9 @@ Both files share the same CTE structure up through the `detail` stage. The execu
 
 ### Health Status is Data-Derived, Not System-Authoritative
 
-The `health_status` values (`HEALTHY`, `WATCH`, `DEGRADED`) and `gap_class` classifications produced by these queries are derived entirely from insert activity observed in your Snowflake CDM tables. They reflect patterns in the data — specifically, the presence or absence of row inserts within expected time windows.
+The `health_status` values (`NORMAL`, `VARIANCE`, `ANOMALY`) and `gap_class` classifications produced by these queries are derived entirely from insert activity observed in your Snowflake CDM tables. They reflect patterns in the data — specifically, the presence or absence of row inserts within expected time windows.
 
-**This is not a real-time system health monitor.** These queries cannot detect upstream pipeline failures, Anthology platform incidents, network issues, or any condition that does not ultimately manifest as a change in insert activity. A `HEALTHY` status means inserts are arriving on the expected cadence as configured; it does not mean the underlying Anthology Illuminate platform is operating normally, nor should it be used as a substitute for official monitoring or support channels.
+**This is not a real-time system health monitor.** These queries cannot detect upstream pipeline failures, Anthology platform incidents, network issues, or any condition that does not ultimately manifest as a change in insert activity. A `NORMAL` status means inserts are arriving on the expected cadence as configured; it does not mean the underlying Anthology Illuminate platform is operating normally, nor should it be used as a substitute for official monitoring or support channels.
 
 Always verify unexpected results against the [Anthology Illuminate status page](https://status.anthology.com) and consult Anthology support for confirmed data pipeline issues.
 
@@ -52,7 +53,7 @@ The query looks back over a configurable window (default: 5 days) and groups ins
 | `MINOR_VARIANCE` | Gap exceeded expected but within tolerance multiplier |
 | `LARGE_GAP` | Gap exceeded all tolerance thresholds |
 
-The executive summary (`illuminate_monitoring.sql`) rolls these up to a `health_status` per source — `HEALTHY`, `WATCH`, or `DEGRADED` — plus a single fleet-wide row.
+The executive summary (`illuminate_monitoring.sql`) rolls these up to a `health_status` per source — `NORMAL`, `VARIANCE`, or `ANOMALY` — plus a single fleet-wide row.
 
 ---
 
@@ -73,16 +74,16 @@ Current cadences relevant to this query:
 | CDM\_ALY (Ally) | Every 12 hours | `SCHEDULED_BATCH_12H` |
 | LEARN (Blackboard source tables) ⚠️ | Every 4 hours | `SCHEDULED_BATCH_4H` |
 
-> ⚠️ **Illuminate Premium required:** The `LEARN` schema (`LEARN.ACTIVITY_ACCUMULATOR`) is only available to institutions with an Anthology Illuminate Premium licence. If you do not have Premium, the query will fail with a table-not-found error. To disable it, comment out **two** locations in each SQL file:
+> ⚠️ **Illuminate Premium required:** The `LEARN` schema (`LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE`) is only available to institutions with an Anthology Illuminate Premium licence. If you do not have Premium, the query will fail with a table-not-found error. To disable it, comment out **two** locations in each SQL file:
 >
-> **1. In `source_config`** — comment out the `LEARN.ACTIVITY_ACCUMULATOR` row:
+> **1. In `source_config`** — comment out the `LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE` row:
 > ```sql
-> -- ('LEARN.ACTIVITY_ACCUMULATOR',    240,  2, 'SCHEDULED_BATCH_4H')
+> -- ('LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE',    240,  2, 'SCHEDULED_BATCH_4H')
 > ```
 > **2. In `all_events_raw`** — comment out the matching `UNION ALL` block:
 > ```sql
 > -- UNION ALL
-> -- SELECT 'LEARN.ACTIVITY_ACCUMULATOR', ROW_INSERTED_TIME
+> -- SELECT 'LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE', ROW_INSERTED_TIME
 > -- FROM learn.activity_accumulator
 > -- WHERE ROW_INSERTED_TIME >= (SELECT start_ts FROM date_window)
 > ```
@@ -128,6 +129,21 @@ These two must stay in sync — a source present in one but not the other will f
 - Snowflake (tested on standard Snowflake SQL; no Snowpark or UDFs required)
 - `SELECT` privileges on all monitored CDM tables
 - The query assumes `ROW_INSERTED_TIME` is present and indexed on each source table
+
+---
+
+## QuickSight Usage
+
+`illuminate_monitoring_qs.sql` is purpose-built for use as a custom SQL dataset in Amazon QuickSight with Snowflake in Direct Query mode. It differs from the detail file in a few intentional ways:
+
+- **No `parameters` or `date_window` CTEs** — these are collapsed to inline `DATEADD` literals to reduce CTE chain depth and avoid compatibility issues in the QuickSight SQL editor
+- **30-day lookback window** — hardcoded rather than parameterized, since QuickSight cannot inject values into CTEs in Direct Query mode. Use QuickSight date range filters and controls to slice the visible range on individual dashboards
+- **No display columns** — `bucket_time` and `bucket_label` are omitted; apply date formatting natively via QuickSight field settings on `bucket_ts`
+- **`minute_bucket` inlined** — the 5-minute bucket width is inlined as a literal wherever it was previously referenced via CTE, removing the `CROSS JOIN date_window` scalar pulls
+
+To use it, create a new dataset in QuickSight, select your Snowflake data source, choose **Use custom SQL**, and paste the contents of `illuminate_monitoring_qs.sql`. Set the dataset to **Direct Query** mode to ensure results always reflect current data.
+
+> **Note:** If you have read-only access to Snowflake (no ability to create views), Direct Query is the appropriate mode. Avoid SPICE for this dataset as cached results will not reflect recent insert activity.
 
 ---
 

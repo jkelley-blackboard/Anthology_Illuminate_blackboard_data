@@ -44,7 +44,7 @@ source_config AS (
         ('CDM_ALY.CONTENT',               720,  2, 'SCHEDULED_BATCH_12H'),
         -- LEARN schema requires Illuminate Premium. Comment out the line below
         -- (and the matching UNION ALL block in all_events_raw) if not licensed.
-        ('LEARN.ACTIVITY_ACCUMULATOR',    240,  2, 'SCHEDULED_BATCH_4H')
+        ('LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE',    240,  2, 'SCHEDULED_BATCH_4H')
 ),
 
 -- =====================================================
@@ -81,8 +81,8 @@ all_events_raw AS (
     -- LEARN schema requires Illuminate Premium. Comment out this block
     -- (and the matching row in source_config) if not licensed.
     UNION ALL
-    SELECT 'LEARN.ACTIVITY_ACCUMULATOR', ROW_INSERTED_TIME
-    FROM learn.activity_accumulator
+    SELECT 'LEARN.ACTIVITY_ACCUMULATOR_ARCHIVE', ROW_INSERTED_TIME
+    FROM learn.activity_accumulator_archive
     WHERE ROW_INSERTED_TIME >= (SELECT start_ts FROM date_window)
 ),
 
@@ -198,11 +198,11 @@ summary AS (
             / NULLIF(SUM(CASE WHEN gap_class != 'FIRST_SEEN' THEN 1 ELSE 0 END), 0)
         , 1)                                                            AS pct_on_time,
 
-        -- DEGRADED if any large gaps; WATCH if more than 2 minor variances; else HEALTHY
+        -- ANOMALY if any large gaps; VARIANCE if more than 2 minor variances; else NORMAL
         CASE
-            WHEN SUM(CASE WHEN gap_class = 'LARGE_GAP'      THEN 1 ELSE 0 END) > 0 THEN 'DEGRADED'
-            WHEN SUM(CASE WHEN gap_class = 'MINOR_VARIANCE' THEN 1 ELSE 0 END) > 2  THEN 'WATCH'
-            ELSE 'HEALTHY'
+            WHEN SUM(CASE WHEN gap_class = 'LARGE_GAP'      THEN 1 ELSE 0 END) > 0 THEN 'ANOMALY'
+            WHEN SUM(CASE WHEN gap_class = 'MINOR_VARIANCE' THEN 1 ELSE 0 END) > 2  THEN 'VARIANCE'
+            ELSE 'NORMAL'
         END                                                             AS health_status
 
     FROM detail
@@ -224,9 +224,12 @@ fleet_summary AS (
         MAX(last_seen)             AS last_seen,
         MIN(first_large_gap_ts)    AS first_large_gap_ts,
         ROUND(AVG(pct_on_time), 1) AS pct_on_time,
-        -- MAX works here because 'DEGRADED' > 'HEALTHY' > 'WATCH' alphabetically;
-        -- worst-case status naturally bubbles up
-        MAX(health_status)         AS health_status
+        -- Explicit worst-case roll-up; alphabetical MAX not reliable with these labels
+        CASE
+            WHEN SUM(CASE WHEN health_status = 'ANOMALY'  THEN 1 ELSE 0 END) > 0 THEN 'ANOMALY'
+            WHEN SUM(CASE WHEN health_status = 'VARIANCE' THEN 1 ELSE 0 END) > 0 THEN 'VARIANCE'
+            ELSE 'NORMAL'
+        END                        AS health_status
     FROM summary
 )
 
