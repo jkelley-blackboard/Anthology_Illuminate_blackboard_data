@@ -21,10 +21,12 @@ This repository contains personal variations of SQL queries for exploring and an
 Here are some useful links for working with **Anthology Illuminate**:
 
 - 🎓 [Introduction to Illuminate LMS Data Reporting](https://bbprofessionaldevelopment.blackboard.com/webapps/consulting-central/app/launch/TDMv2?locale=en_US&course=offerings/7942b7f3-a2ba-4ac4-8ede-8f8f9c025eb9)  
-  Register and complete this Free Blackboard Professional Development Course.  
+  Register and complete this Free Blackboard Professional Development Course.
+  Navigation can be a little tricky - search for "Illuminate" to find the course.
 
 - 🧑‍💻 [Illuminate Developers User Group](https://community.anthology.com/home/clubs/illuminate-developers-user-group/overview)  
-  Join the club on Anthology Community to connect with other Illuminate developers.
+  Join the club on our Community site to connect with other Illuminate developers.
+  Illuminate Office hours held 2nd Thursday of the month [Link](https://connect.anthology.com/blackboard-office-hours)
 
 - 📚 [Illuminate Help Center](https://help.blackboard.com/Anthology_Illuminate)  
   Official documentation and support resources for Illuminate.
