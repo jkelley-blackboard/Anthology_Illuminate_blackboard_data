@@ -37,6 +37,8 @@ Here are some useful links for working with **Anthology Illuminate**:
 - 🤖 [ChatGPT Workspace for Blackboard Data & AI Projects](https://chatgpt.com/g/g-67b0b8c0b1d4819186026bdcdcc78aa1-blackboard-data-illuminate-ai-developer)  
   AI-powered workspace for exploring Blackboard Data use cases.
 
+- 🔗 [Blackboard Techies Slack Space](https://blackboardtechies.slack.com/)
+  Join and engage with a community of practice focused on all things Blackboard. Once you’re in, be sure to participate in the [#blackboard-illuminate](https://blackboardtechies.slack.com/archives/CKE1ZDYKY) channel for discussions and resources related to Illuminate and connected topics.
 ---
 
 ## 🤝 Contributing
