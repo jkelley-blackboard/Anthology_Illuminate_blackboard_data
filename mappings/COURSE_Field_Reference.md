@@ -76,3 +76,20 @@
 - **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
 
 
+
+## Blackboard Course GUI Attributes **Not Stored in Illuminate (COURSE)**
+
+These attributes are **visible in the Blackboard Course Settings GUI** but **are not stored** in Illuminate
+
+| GUI Category | Blackboard Course GUI Attribute | Stored in Illuminate? | Snowflake Field / Notes |
+|---|---|---|---|
+| General Information | Subject Area | No | Legacy course metadata; not represented in COURSE and distinct from 2026 Subject features |
+| General Information | Discipline | No | Legacy course metadata; not represented in COURSE and distinct from 2026 Subject/Program features |
+| General Information | Subject ID | No | Course–Subject associations not stored (2026 Feature)|
+| Availability | Duration Type | No | Course duration semantics not stored |
+| Availability | Course Complete Flag | No | Course completion state not represented |
+| Categories | Course Categories | No | Core catalog / category metadata not represented |
+| Enrollment Options | Self-Enrollment constraints (dates, times, access code) | No | `COURSE.enrollment_method = 'S'` is stored, but enrollment start/end dates, times, and access code usage are not captured |
+| Localization | Language Pack | No | Course‑level localization not represented |
+| Content View | Text / Icon View | No | Original courses only; not stored |
+| Course Banner | Image select / enabled | No | Course branding assets not stored |
