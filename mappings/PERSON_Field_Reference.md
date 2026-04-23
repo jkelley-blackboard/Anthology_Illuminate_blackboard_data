@@ -7,13 +7,14 @@
 ## Identifiers & Keys
 
 - **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-ID)** — Snowflake-generated surrogate key; not sourced from Blackboard.
-- **[GLOBAL_PERSON_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-GLOBAL_PERSON_ID)** — Global identifier for the person across deployments; stable in Snowflake.
-- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
+- **[GLOBAL_PERSON_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-GLOBAL_PERSON_ID)** — Global identifier for the person across CDMs.
 - **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-SOURCE_ID)** — Blackboard database primary key (`pk1`) for the user record. Primary keys are not reused in Blackboard.
 - **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard-generated UUID used for integration with other systems (e.g., LTI); stored within `PERSON.stage`.
 - **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard external user key; required to be unique in Blackboard; stored within `PERSON.stage`.
 - **[STAGE:user_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard username used for authentication and UI login; stored within `PERSON.stage`.
 - **[STAGE:student_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard student id non-unique identifier; stored within `PERSON.stage`.
+- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Internal Blackboard identifier used for integration with other Blackboard services; stored within `PERSON.stage`.
+
 
 
 ## Identity & Profile Information
@@ -56,4 +57,5 @@
 ## Data Source & Governance (STAGE)
 
 - **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Identifier of the data source in Blackboard (e.g., SYSTEM, SIS, PENDING PURGE); stored within `PERSON.stage`.
-- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Internal Blackboard identifier used for integration with other Blackboard services; stored within `PERSON.stage`.
+- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
+
