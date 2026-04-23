@@ -51,16 +51,10 @@
 
 ## Blackboard Enrollment Fields Outside Illuminate Scope
 
-The following fields are visible to administrators in the Blackboard Learn enrollment management interface. Illuminate focuses on the enrollment attributes most relevant to learning analytics and institutional reporting.
-
-| Admin UI Location | Field | Notes |
-|---|---|---|
-| **Enrollment list** | Enrollment Data Source Key | Identifies the integration or authority that owns the enrollment record (e.g., `SIS_STUDENTS`, `SYSTEM`). Available on the user and course records via their respective STAGE objects. |
-| **Enrollment list** | User name / email | User identity fields displayed for context; available in Illuminate via `CDM_LMS.PERSON`. |
-| **Enrollment record** | Observer associations | Observer-to-student linkages are managed separately from course enrollments. |
-| **Enrollment record** | Enrollment request date | Applicable to self-enrollment and email-approval workflows; `ENROLLMENT_TIME` reflects the date the enrollment was confirmed. |
-| **Enrollment record** | Self-enrollment access code | Configuration detail for self-enrollment courses. |
-| **Integration panel** | Row status (numeric) | `ENABLED_IND` reflects this as a boolean; the underlying numeric values are normalized during CDM processing. |
+| Blackboard Field | Notes |
+|---|---|
+| Availability Override Date | Date-based availability override on the enrollment record; outside current scope. |
+| Enrollment Data Source Key | Identifies the integration or authority that owns the enrollment record (e.g., `SIS_STUDENTS`, `SYSTEM`). Not included in Illuminate. |
 
 ## Notes
 
