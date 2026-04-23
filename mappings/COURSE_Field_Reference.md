@@ -7,15 +7,16 @@
 ## Identifiers & Keys
 
 - **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ID)** — Snowflake-generated surrogate key; not sourced from Blackboard.
-- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
 - **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-SOURCE_ID)** — Blackboard database primary key (`pk1`). Primary keys are not reused in Blackboard; value may be observed in course URLs.
 - **[COURSE_NUMBER](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_NUMBER)** — Blackboard visible Course ID. Unique in Blackboard, not guaranteed unique in Snowflake due to historical retention.
 - **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard-generated UUID used for integration with other systems (e.g., LTI); stored within `COURSE.stage`.
 - **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard external course key; required to be unique in Blackboard; stored within `COURSE.stage`.
+- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal Blackboard identifier used for integration with other Blackboard services; stored within `COURSE.stage`.
 
 ## Relationships
 
 - **[COURSE_PARENT_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_PARENT_ID)** — Lookup to `COURSE.id` of the parent (merged) course.
+- **[STAGE:crsmain_parent_pk1](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_STAGE)** — Blackboard primary key for a parent (merged) course; stored within `COURSE.stage`.
 - **[TERM_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-TERM_ID)** — Lookup to `TERM.id` value in Snowflake.
 - **[COPY_FROM_COURSES](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COPY_FROM_COURSES)** — Lookup to `COURSE.id` values for source courses from which copies were made.
 
@@ -65,11 +66,13 @@
 - **[ROW_UPDATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_UPDATED_TIME)** — Timestamp when the record was updated in Snowflake.
 - **[ROW_DELETED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_DELETED_TIME)** — Timestamp indicating when the Snowflake record was marked as deleted due to Blackboard source deletion.
 
-## Data Source & Governance (STAGE)
+## Settings and other Metadata
 
 - **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Identifier of the data source in Blackboard (e.g., SYSTEM, FLAT_FILES, SIS); stored within `COURSE.stage`.
 - **[STAGE:service_level](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Course type specialization (e.g., `F` = Course, `C` = Organization); stored within `COURSE.stage`.
 - **[STAGE:allow_guest](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Guest access setting (`Y`/`N`); stored within `COURSE.stage`.
 - **[STAGE:allow_observer](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Observer access setting (`Y`/`N`); stored within `COURSE.stage`.
 - **[STAGE:sos_id_pk2](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Deprecated; former tenant key for virtual Blackboard deployments; stored within `COURSE.stage`.
-- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal Blackboard identifier used for integration with other Blackboard services; stored within `COURSE.stage`.
+- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
+
+

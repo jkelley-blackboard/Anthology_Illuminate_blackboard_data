@@ -13,6 +13,8 @@
 - **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard-generated UUID used for integration with other systems (e.g., LTI); stored within `PERSON.stage`.
 - **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard external user key; required to be unique in Blackboard; stored within `PERSON.stage`.
 - **[STAGE:user_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard username used for authentication and UI login; stored within `PERSON.stage`.
+- **[STAGE:student_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard student id non-unique identifier; stored within `PERSON.stage`.
+
 
 ## Identity & Profile Information
 
