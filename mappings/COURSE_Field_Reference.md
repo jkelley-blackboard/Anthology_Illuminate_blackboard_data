@@ -1,4 +1,3 @@
-
 # COURSE Table — Field Reference
 
 > Each non-STAGE field links directly to its entry in the Illuminate Data Dictionary.
@@ -6,90 +5,96 @@
 
 ## Identifiers & Keys
 
-- **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ID)** — Snowflake-generated surrogate key; not sourced from Blackboard.
-- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-SOURCE_ID)** — Blackboard database primary key (`pk1`). Primary keys are not reused in Blackboard; value may be observed in course URLs.
-- **[COURSE_NUMBER](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_NUMBER)** — Blackboard visible Course ID. Unique in Blackboard, not guaranteed unique in Snowflake due to historical retention.
-- **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard-generated UUID used for integration with other systems (e.g., LTI); stored within `COURSE.stage`.
-- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard external course key; required to be unique in Blackboard; stored within `COURSE.stage`.
-- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal Blackboard identifier used for integration with other Blackboard services; stored within `COURSE.stage`.
+- **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ID)** — Snowflake surrogate key for the course record.
+- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-SOURCE_ID)** — Blackboard Learn internal primary key (`pk1`). This value is stable, never reused, and is visible in course URLs.
+- **[COURSE_NUMBER](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_NUMBER)** — The visible Course ID in Blackboard Learn. Unique within a live deployment; historical records in Snowflake may reflect prior courses that shared the same ID over time.
+- **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard-generated UUID, used in LTI and cross-system integrations.
+- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Institution-assigned external course key; unique within Blackboard Learn.
+- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal identifier used for integration with Blackboard platform services.
 
 ## Relationships
 
-- **[COURSE_PARENT_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_PARENT_ID)** — Lookup to `COURSE.id` of the parent (merged) course.
-- **[STAGE:crsmain_parent_pk1](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_STAGE)** — Blackboard primary key for a parent (merged) course; stored within `COURSE.stage`.
-- **[TERM_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-TERM_ID)** — Lookup to `TERM.id` value in Snowflake.
-- **[COPY_FROM_COURSES](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COPY_FROM_COURSES)** — Lookup to `COURSE.id` values for source courses from which copies were made.
+- **[COURSE_PARENT_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_PARENT_ID)** — References `COURSE.id` of the parent course in a merged/cross-listed set.
+- **[STAGE:crsmain_parent_pk1](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard `pk1` of the parent course; the source value underlying `COURSE_PARENT_ID`.
+- **[TERM_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-TERM_ID)** — References `TERM.id` in Snowflake.
+- **[COPY_FROM_COURSES](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COPY_FROM_COURSES)** — References `COURSE.id` values for courses from which this course was copied.
 
 ## Descriptive Metadata
 
-- **[NAME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-NAME)** — Blackboard Course Name.
-- **[DESCRIPTION](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESCRIPTION)** — Blackboard Course Description.
+- **[NAME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-NAME)** — Course name as it appears in Blackboard Learn.
+- **[DESCRIPTION](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESCRIPTION)** — Course description as entered in Blackboard Learn.
 
 ## Course Experience / Design
 
-- **[DESIGN_MODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESIGN_MODE)** — Blackboard Course Experience (Ultra or Original).
-- **[DESIGN_MODE_SOURCE_CODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESIGN_MODE_SOURCE_CODE)** — Duplicate of `DESIGN_MODE`.
-- **[DESIGN_MODE_SOURCE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESIGN_MODE_SOURCE_DESC)** — Not implemented.
+- **[DESIGN_MODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESIGN_MODE)** — Indicates whether the course uses the Ultra or Original course experience.
+- **[DESIGN_MODE_SOURCE_CODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESIGN_MODE_SOURCE_CODE)** — The underlying `ULTRA_STATUS` value from Blackboard; functionally equivalent to `DESIGN_MODE`.
+- **[DESIGN_MODE_SOURCE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESIGN_MODE_SOURCE_DESC)** — Reserved for future use; currently unpopulated.
 
 ## Enrollment Configuration
 
-- **[ENROLLMENT_METHOD](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENROLLMENT_METHOD)** — Blackboard enrollment setting: `I` = Instructor/Admin only; `E` = email approval; `S` = self-enrollment.
-- **[ENROLLMENT_METHOD_SOURCE_CODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENROLLMENT_METHOD_SOURCE_CODE)** — Duplicate of `ENROLLMENT_METHOD`.
-- **[ENROLLMENT_METHOD_SOURCE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENROLLMENT_METHOD_SOURCE_DESC)** — Not implemented.
+- **[ENROLLMENT_METHOD](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENROLLMENT_METHOD)** — Course enrollment type: `I` = Instructor/Admin managed; `E` = email approval; `S` = self-enrollment.
+- **[ENROLLMENT_METHOD_SOURCE_CODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENROLLMENT_METHOD_SOURCE_CODE)** — The underlying `ENROLL_OPTION` value from Blackboard; functionally equivalent to `ENROLLMENT_METHOD`.
+- **[ENROLLMENT_METHOD_SOURCE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENROLLMENT_METHOD_SOURCE_DESC)** — Reserved for future use; currently unpopulated.
 
 ## Availability & Enablement
 
-- **[AVAILABLE_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-AVAILABLE_IND)** — Direct value from the Blackboard course record indicating availability.
-- **[AVAILABLE_TO_STUDENTS_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-AVAILABLE_TO_STUDENTS_IND)** — Derived value based on availability rules applied to the course.
-- **[ENABLED_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENABLED_IND)** — Direct value from the Blackboard course record indicating system enablement.
-- **[STAGE:avl_rule_indicator](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Indicates whether availability rules are applied; stored within `COURSE.stage`.
+- **[AVAILABLE_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-AVAILABLE_IND)** — The availability flag as set directly on the course record in Blackboard.
+- **[AVAILABLE_TO_STUDENTS_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-AVAILABLE_TO_STUDENTS_IND)** — Derived availability indicator that accounts for term dates, course dates, and the availability flag. Use this field for student access reporting.
+- **[ENABLED_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ENABLED_IND)** — System-level enablement flag from the Blackboard course record.
+- **[STAGE:avl_rule_indicator](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Indicates whether date-based availability rules are active for this course.
 
-## Scheduling (Configured)
+## Scheduling
 
-- **[START_DATE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-START_DATE)** — Date portion of the course start date in Blackboard.
-- **[END_DATE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-END_DATE)** — Date portion of the course end date in Blackboard.
-- **[START_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-START_TIME)** — Full timestamp of the course start date in Blackboard.
-- **[END_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-END_TIME)** — Full timestamp of the course end date in Blackboard.
+> `START_DATE` and `END_DATE` are superseded by `START_TIME` and `END_TIME`, which preserve full timestamp precision. New queries should use `START_TIME` and `END_TIME`.
+
+- **[START_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-START_TIME)** — Full timestamp of the configured course start date.
+- **[END_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-END_TIME)** — Full timestamp of the configured course end date.
+- **~~[START_DATE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-START_DATE)~~** *(Superseded)* — Date-only version of the course start. Use `START_TIME` instead.
+- **~~[END_DATE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-END_DATE)~~** *(Superseded)* — Date-only version of the course end. Use `END_TIME` instead.
 
 ## Access Activity (Derived)
 
-- **[FIRST_COURSE_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-FIRST_COURSE_TIME)** — Timestamp of the first known access to the course by any user, derived from `CDM_LMS.course_activity`.
-- **[LAST_COURSE_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-LAST_COURSE_TIME)** — Timestamp of the last known access to the course by any user, derived from `CDM_LMS.course_activity`.
-- **[FIRST_COURSE_WEEK](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-FIRST_COURSE_WEEK)** — Monday preceding `FIRST_COURSE_TIME`, used for week-based reporting.
-- **[LAST_COURSE_WEEK](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-LAST_COURSE_WEEK)** — Monday preceding `LAST_COURSE_TIME`, used for week-based reporting.
+- **[FIRST_COURSE_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-FIRST_COURSE_TIME)** — Timestamp of the earliest recorded access to the course by any user, derived from `CDM_LMS.COURSE_ACTIVITY`.
+- **[LAST_COURSE_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-LAST_COURSE_TIME)** — Timestamp of the most recent recorded access to the course by any user, derived from `CDM_LMS.COURSE_ACTIVITY`.
+- **[FIRST_COURSE_WEEK](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-FIRST_COURSE_WEEK)** — Monday of the week containing `FIRST_COURSE_TIME`; useful for week-aligned reporting.
+- **[LAST_COURSE_WEEK](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-LAST_COURSE_WEEK)** — Monday of the week containing `LAST_COURSE_TIME`; useful for week-aligned reporting.
 
-## Lifecycle & Audit (Source vs Warehouse)
+## Lifecycle & Audit
 
-- **[CREATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-CREATED_TIME)** — Timestamp when the course was created in Blackboard.
-- **[MODIFIED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-MODIFIED_TIME)** — Timestamp when the course was last updated in Blackboard.
-- **[ROW_INSERTED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_INSERTED_TIME)** — Timestamp when the record was created in Snowflake.
-- **[ROW_UPDATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_UPDATED_TIME)** — Timestamp when the record was updated in Snowflake.
-- **[ROW_DELETED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_DELETED_TIME)** — Timestamp indicating when the Snowflake record was marked as deleted due to Blackboard source deletion.
+- **[CREATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-CREATED_TIME)** — Timestamp when the course was created in Blackboard Learn.
+- **[MODIFIED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-MODIFIED_TIME)** — Timestamp when the course record was last updated in Blackboard Learn.
+- **[ROW_INSERTED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_INSERTED_TIME)** — Timestamp when the record was first written to Snowflake.
+- **[ROW_UPDATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_UPDATED_TIME)** — Timestamp of the most recent update to the record in Snowflake.
+- **[ROW_DELETED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_DELETED_TIME)** — Timestamp when the record was soft-deleted in Snowflake, reflecting removal from the Blackboard source.
 
-## Settings and other Metadata
+## Settings and Other Metadata (STAGE)
 
-- **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Identifier of the data source in Blackboard (e.g., SYSTEM, FLAT_FILES, SIS); stored within `COURSE.stage`.
-- **[STAGE:service_level](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Course type specialization (e.g., `F` = Course, `C` = Organization); stored within `COURSE.stage`.
-- **[STAGE:allow_guest](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Guest access setting (`Y`/`N`); stored within `COURSE.stage`.
-- **[STAGE:allow_observer](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Observer access setting (`Y`/`N`); stored within `COURSE.stage`.
-- **[STAGE:sos_id_pk2](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Deprecated; former tenant key for virtual Blackboard deployments; stored within `COURSE.stage`.
-- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
+- **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard-generated UUID, used in LTI and cross-system integrations.
+- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Institution-assigned external course key; unique within Blackboard Learn.
+- **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal identifier used for integration with Blackboard platform services.
+- **[STAGE:crsmain_parent_pk1](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard `pk1` of the parent course in a merged set. See also `COURSE_PARENT_ID`.
+- **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Human-readable data source key identifying the integration that owns this course record (e.g., `SYSTEM`, `FLAT_FILES`, `SIS`).
+- **[STAGE:data_src_pk1](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Numeric identifier for the data source record in Blackboard; companion to `data_src_batchuid`.
+- **[STAGE:avl_rule_indicator](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Indicates whether date-based availability rules govern student access to this course.
+- **[STAGE:service_level](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Distinguishes course type: `F` = Course, `C` = Organization.
+- **[STAGE:allow_guest](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Guest access setting (`Y`/`N`).
+- **[STAGE:allow_observer](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Observer access setting (`Y`/`N`).
+- **[STAGE:sos_id_pk2](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Legacy tenant identifier from earlier Blackboard hosting architectures; retained for historical continuity.
+- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifies the Blackboard Learn deployment. All records from a single deployment share this value.
 
+## Blackboard Course Settings Outside Illuminate Scope
 
+The following settings are configurable in the Blackboard Learn course interface. Illuminate focuses on the course attributes most relevant to learning analytics and institutional reporting.
 
-## Blackboard Course GUI Attributes **Not Stored in Illuminate (COURSE)**
-
-These attributes are **visible in the Blackboard Course Settings GUI** but **are not stored** in Illuminate
-
-| GUI Category | Blackboard Course GUI Attribute | Stored in Illuminate? | Snowflake Field / Notes |
-|---|---|---|---|
-| General Information | Subject Area | No | Legacy course metadata; not represented in COURSE and distinct from 2026 Subject features |
-| General Information | Discipline | No | Legacy course metadata; not represented in COURSE and distinct from 2026 Subject/Program features |
-| General Information | Subject ID | No | Course–Subject associations not stored (2026 Feature)|
-| Availability | Duration Type | No | Course duration semantics not stored |
-| Availability | Course Complete Flag | No | Course completion state not represented |
-| Categories | Course Categories | No | Core catalog / category metadata not represented |
-| Enrollment Options | Self-Enrollment constraints (dates, times, access code) | No | `COURSE.enrollment_method = 'S'` is stored, but enrollment start/end dates, times, and access code usage are not captured |
-| Localization | Language Pack | No | Course‑level localization not represented |
-| Content View | Text / Icon View | No | Original courses only; not stored |
-| Course Banner | Image select / enabled | No | Course branding assets not stored |
+| Category | Field | Notes |
+|---|---|---|
+| **General Information** | Subject Area | Legacy catalog metadata; distinct from 2026 Subject features |
+| | Discipline | Legacy catalog metadata; distinct from 2026 Subject/Program features |
+| | Subject ID | Course–Subject associations are a 2026 platform feature |
+| **Availability** | Duration Type | Course duration type semantics are reflected in date fields |
+| | Course Complete Flag | Course completion state is managed in Blackboard; not reflected in COURSE |
+| **Categories** | Course Categories | Catalog and category metadata are outside current scope |
+| **Enrollment Options** | Self-enrollment dates, times, access code | `ENROLLMENT_METHOD = 'S'` indicates self-enrollment is enabled; the associated configuration details are outside current scope |
+| **Localization** | Language Pack | Course-level language setting |
+| **Content View** | Text / Icon View | Original course view preference |
+| **Course Banner** | Banner image | Course branding asset |
