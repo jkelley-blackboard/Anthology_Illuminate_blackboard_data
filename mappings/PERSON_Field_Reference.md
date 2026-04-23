@@ -15,8 +15,6 @@
 - **[STAGE:student_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard student id non-unique identifier; stored within `PERSON.stage`.
 - **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Internal Blackboard identifier used for integration with other Blackboard services; stored within `PERSON.stage`.
 
-
-
 ## Identity & Profile Information
 
 - **[FIRST_NAME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-FIRST_NAME)** — User’s first name from Blackboard.
@@ -59,3 +57,33 @@
 - **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Identifier of the data source in Blackboard (e.g., SYSTEM, SIS, PENDING PURGE); stored within `PERSON.stage`.
 - **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-INSTANCE_ID)** — Identifier for the Blackboard deployment; all records from a single deployment share this key.
 
+## Blackboard User Profile Attributes **Not Stored in Illuminate**
+
+These fields are **visible in the Blackboard User Profile GUI** but **are not transfered** to Illuminate
+
+| Category | Blackboard GUI Field | Notes |
+|---|---|---|
+| **Education & Academic Profile** | Education Level | Not stored in PERSON or STAGE |
+| **Name & Identity** | Title | Not stored |
+|  | Middle Name | Not stored |
+|  | Suffix | Not stored |
+|  | Other Name | Not stored |
+|  | Name Pronunciation | UI-only preference |
+| **Email Variants** | Institution Email | PERSON stores a single email only |
+| **Demographics & Preferences** | Gender | Not stored |
+|  | Pronouns | Not stored |
+| **Employment / Org Metadata** | Company | Not stored in PERSON |
+|  | Job Title | Not stored in PERSON |
+|  | Department | Not stored in PERSON |
+| **Address Information** | Street 1 | Not stored |
+|  | Street 2 | Not stored |
+|  | City | Not stored |
+|  | State / Province | Not stored |
+|  | Country | Not stored |
+| **Contact Information** | Home Phone | Not stored |
+|  | Work Phone | Not stored |
+|  | Work Fax | Not stored |
+|  | Mobile Phone | Not stored |
+| **Web / External Profile** | Website | Not stored |
+| **Institutional Structure** | Institutional Hierarchy / Node associations | Snowflake does **not** store user-to-node associations |
+| **Roles** | Secondary Institution Roles and Secondary System Roles | Only the **primary** institution role and **primary** system role are stored |
