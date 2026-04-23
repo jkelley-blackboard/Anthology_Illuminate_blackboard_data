@@ -1,5 +1,5 @@
 
-# COURSE Table — Field Reference (Authoritative)
+# COURSE Table — Field Reference
 
 > Each non-STAGE field links directly to its entry in the Illuminate Data Dictionary.
 > All STAGE attributes link to the shared `COURSE.stage` dictionary entry.

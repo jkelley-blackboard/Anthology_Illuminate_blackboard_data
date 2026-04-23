@@ -1,5 +1,5 @@
 
-# PERSON Table — Field Reference (Authoritative)
+# PERSON Table — Field Reference
 
 > Each non-STAGE field links directly to its entry in the Illuminate Data Dictionary.
 > All STAGE attributes link to the shared `PERSON.stage` dictionary entry.
