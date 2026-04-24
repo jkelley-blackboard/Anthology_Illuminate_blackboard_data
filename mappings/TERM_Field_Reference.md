@@ -46,7 +46,7 @@
 
 | Blackboard Field | Notes |
 |---|---|
-| Term Data Source Key (batch UID) | The human-readable data source key label is not included in Illuminate. `STAGE:data_src_pk1` provides the numeric identifier for the same data source record. |
+| Term Data Source Key | The human-readable data source key label is not included in Illuminate for Term. `STAGE:data_src_pk1` provides the numeric identifier for the same data source record. |
 | Duration Type | Controls how course access within the term is calculated (e.g., fixed dates, days from enrollment). |
 | Course Late Access / Reinstatement settings | Term-level late access configuration. |
 | Term Type | Introduced in Blackboard 2026: Unspecified, Semester, Trimester, Quarter, Intersession, Module, Annual. Not yet represented in Illuminate. |
