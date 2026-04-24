@@ -6,10 +6,10 @@
 ## Identifiers & Keys
 
 - **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ID)** — Snowflake surrogate key for the course record.
-- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-SOURCE_ID)** — Blackboard Learn internal primary key (`pk1`). This value is stable, never reused, and is visible in course URLs.
-- **[COURSE_NUMBER](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_NUMBER)** — The visible Course ID in Blackboard Learn. Unique within a live deployment; historical records in Snowflake may reflect prior courses that shared the same ID over time.
+- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-SOURCE_ID)** — Blackboard internal primary key (`pk1`). This value is stable, never reused, and is visible in course URLs.
+- **[COURSE_NUMBER](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-COURSE_NUMBER)** — The visible Course ID in Blackboard. Unique within a live deployment; historical records in Snowflake may reflect prior courses that shared the same ID over time.
 - **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard-generated UUID, used in LTI and cross-system integrations.
-- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Institution-assigned external course key; unique within Blackboard Learn.
+- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Institution-assigned external course key; unique within Blackboard.
 - **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal identifier used for integration with Blackboard platform services.
 
 ## Relationships
@@ -21,8 +21,8 @@
 
 ## Descriptive Metadata
 
-- **[NAME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-NAME)** — Course name as it appears in Blackboard Learn.
-- **[DESCRIPTION](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESCRIPTION)** — Course description as entered in Blackboard Learn.
+- **[NAME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-NAME)** — Course name as it appears in Blackboard.
+- **[DESCRIPTION](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-DESCRIPTION)** — Course description as entered in Blackboard.
 
 ## Course Experience / Design
 
@@ -61,8 +61,8 @@
 
 ## Lifecycle & Audit
 
-- **[CREATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-CREATED_TIME)** — Timestamp when the course was created in Blackboard Learn.
-- **[MODIFIED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-MODIFIED_TIME)** — Timestamp when the course record was last updated in Blackboard Learn.
+- **[CREATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-CREATED_TIME)** — Timestamp when the course was created in Blackboard.
+- **[MODIFIED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-MODIFIED_TIME)** — Timestamp when the course record was last updated in Blackboard.
 - **[ROW_INSERTED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_INSERTED_TIME)** — Timestamp when the record was first written to Snowflake.
 - **[ROW_UPDATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_UPDATED_TIME)** — Timestamp of the most recent update to the record in Snowflake.
 - **[ROW_DELETED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-ROW_DELETED_TIME)** — Timestamp when the record was soft-deleted in Snowflake, reflecting removal from the Blackboard source.
@@ -70,7 +70,7 @@
 ## Settings and Other Metadata (STAGE)
 
 - **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard-generated UUID, used in LTI and cross-system integrations.
-- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Institution-assigned external course key; unique within Blackboard Learn.
+- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Institution-assigned external course key; unique within Blackboard.
 - **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Internal identifier used for integration with Blackboard platform services.
 - **[STAGE:crsmain_parent_pk1](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Blackboard `pk1` of the parent course in a merged set. See also `COURSE_PARENT_ID`.
 - **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Human-readable data source key identifying the integration that owns this course record (e.g., `SYSTEM`, `FLAT_FILES`, `SIS`).
@@ -80,11 +80,11 @@
 - **[STAGE:allow_guest](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Guest access setting (`Y`/`N`).
 - **[STAGE:allow_observer](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Observer access setting (`Y`/`N`).
 - **[STAGE:sos_id_pk2](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-STAGE)** — Legacy tenant identifier from earlier Blackboard hosting architectures; retained for historical continuity.
-- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifies the Blackboard Learn deployment. All records from a single deployment share this value.
+- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-COURSE-INSTANCE_ID)** — Identifies the Blackboard deployment. All records from a single deployment share this value.
 
 ## Blackboard Course Settings Outside Illuminate Scope
 
-The following settings are configurable in the Blackboard Learn course interface. Illuminate focuses on the course attributes most relevant to learning analytics and institutional reporting.
+The following settings are configurable in the Blackboard course interface. Illuminate focuses on the course attributes most relevant to learning analytics and institutional reporting.
 
 | Category | Field | Notes |
 |---|---|---|

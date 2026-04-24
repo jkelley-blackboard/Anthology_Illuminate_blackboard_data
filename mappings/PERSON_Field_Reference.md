@@ -7,9 +7,9 @@
 
 - **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-ID)** — Snowflake surrogate key for the person record.
 - **[GLOBAL_PERSON_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-GLOBAL_PERSON_ID)** — Cross-CDM identifier linking a person across Illuminate data models.
-- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-SOURCE_ID)** — Blackboard Learn internal primary key (`pk1`) for the user record. This value is stable and never reused.
+- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-SOURCE_ID)** — Blackboard internal primary key (`pk1`) for the user record. This value is stable and never reused.
 - **[STAGE:uuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard-generated UUID, used in LTI and cross-system integrations.
-- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Institution-assigned external user key; unique within Blackboard Learn.
+- **[STAGE:batch_uid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Institution-assigned external user key; unique within Blackboard.
 - **[STAGE:user_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Blackboard username used for login and authentication binding (e.g., LDAP, SSO).
 - **[STAGE:student_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Institution student ID; informational, not required to be unique in Blackboard.
 - **[STAGE:foundations_id](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Internal identifier used for integration with Blackboard platform services.
@@ -54,11 +54,11 @@
 ## Data Source & Governance (STAGE)
 
 - **[STAGE:data_src_batchuid](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-STAGE)** — Data source key identifying the integration or authority that owns this user record (e.g., `SYSTEM`, `SIS`, `PENDING_PURGE`).
-- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-INSTANCE_ID)** — Identifies the Blackboard Learn deployment. All records from a single deployment share this value.
+- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON-INSTANCE_ID)** — Identifies the Blackboard deployment. All records from a single deployment share this value.
 
 ## Blackboard User Profile Fields Outside Illuminate Scope
 
-The following fields are available in the Blackboard Learn user profile interface. Illuminate focuses on the core person attributes most relevant to learning analytics and institutional reporting. Fields primarily used for directory, HR, or contact management purposes are outside Illuminate's current scope.
+The following fields are available in the Blackboard user profile interface. Illuminate focuses on the core person attributes most relevant to learning analytics and institutional reporting. Fields primarily used for directory, HR, or contact management purposes are outside Illuminate's current scope.
 
 | Category | Field | Notes |
 |---|---|---|
