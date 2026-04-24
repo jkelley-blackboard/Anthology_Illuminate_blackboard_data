@@ -9,17 +9,17 @@
 ## Identifiers & Keys
 
 - **[ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ID)** — Snowflake surrogate key for the enrollment record.
-- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-SOURCE_ID)** — Blackboard internal primary key (`pk1`) from `LEARN.COURSE_USERS`. This value is stable and never reused.
+- **[SOURCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-SOURCE_ID)** — Blackboard Learn internal primary key (`pk1`) from `LEARN.COURSE_USERS`. This value is stable and never reused.
 - **[PERSON_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-PERSON_ID)** — References `CDM_LMS.PERSON.ID`.
 - **[COURSE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ID)** — References `CDM_LMS.COURSE.ID`.
-- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-INSTANCE_ID)** — Identifies the Blackboard deployment. All records from a single deployment share this value.
+- **[INSTANCE_ID](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-INSTANCE_ID)** — Identifies the Blackboard Learn deployment. All records from a single deployment share this value.
 
 ## Course Role
 
 - **[COURSE_ROLE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ROLE)** — Canonical role name for this person in the course (e.g., Student, Instructor).
 - **[COURSE_ROLE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ROLE_DESC)** — Human-readable description of the canonical course role.
-- **[COURSE_ROLE_SOURCE_CODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ROLE_SOURCE_CODE)** — The role code as defined in Blackboard, preserving institution-specific role configurations.
-- **[COURSE_ROLE_SOURCE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ROLE_SOURCE_DESC)** — The role name as defined in Blackboard, preserving institution-specific role labels.
+- **[COURSE_ROLE_SOURCE_CODE](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ROLE_SOURCE_CODE)** — The role code as defined in Blackboard Learn, preserving institution-specific role configurations.
+- **[COURSE_ROLE_SOURCE_DESC](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-COURSE_ROLE_SOURCE_DESC)** — The role name as defined in Blackboard Learn, preserving institution-specific role labels.
 - **[ACT_AS_INSTRUCTOR_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ACT_AS_INSTRUCTOR_IND)** — TRUE if this role is configured to behave like an Instructor role, regardless of the role's name. Preferred over role name matching for identifying instructor-like access.
 - **[STUDENT_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-STUDENT_IND)** — TRUE if the person is a student in the course. Derived from course role (`S`) with Preview and Support users excluded.
 - **[PRIMARY_INSTRUCTOR_IND](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-PRIMARY_INSTRUCTOR_IND)** — TRUE if this user is designated as the primary instructor for the course.
@@ -37,8 +37,8 @@
 
 ## Lifecycle & Audit
 
-- **[ENROLLMENT_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ENROLLMENT_TIME)** — Timestamp when the enrollment was created in Blackboard.
-- **[MODIFIED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-MODIFIED_TIME)** — Timestamp when the enrollment record was last updated in Blackboard.
+- **[ENROLLMENT_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ENROLLMENT_TIME)** — Timestamp when the enrollment was created in Blackboard Learn.
+- **[MODIFIED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-MODIFIED_TIME)** — Timestamp when the enrollment record was last updated in Blackboard Learn.
 - **[ROW_INSERTED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ROW_INSERTED_TIME)** — Timestamp when the record was first written to Snowflake.
 - **[ROW_UPDATED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ROW_UPDATED_TIME)** — Timestamp of the most recent update to the record in Snowflake.
 - **[ROW_DELETED_TIME](https://illuminate.blackboard.com/dictionary/entries/entry/CDM_LMS-PERSON_COURSE-ROW_DELETED_TIME)** — Timestamp when the record was soft-deleted in Snowflake, reflecting removal from the Blackboard source.
