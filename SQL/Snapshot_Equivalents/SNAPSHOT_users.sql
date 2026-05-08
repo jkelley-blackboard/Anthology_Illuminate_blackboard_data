@@ -15,7 +15,7 @@
 */
 
 SELECT
-    p.stage['batch_uid']::TEXT          AS "EXTERNAL_USER_KEY",
+    p.stage['batch_uid']::TEXT          AS "EXTERNAL_PERSON_KEY",
     p.stage['user_id']::TEXT            AS "USER_ID",
     p.stage['student_id']::TEXT         AS "STUDENT_ID",
     p.first_name                        AS "FIRST_NAME",
