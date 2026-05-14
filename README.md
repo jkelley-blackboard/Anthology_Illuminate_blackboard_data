@@ -1,16 +1,16 @@
-# Anthology Illuminate – SQL Resources
+# Blackboard Illuminate – SQL Resources
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Platform](https://img.shields.io/badge/platform-Anthology%20Illuminate-blue)
 
-**Author:** jeff.kelley@anthology.com  
+**Author:** jeff.kelley@blackboard.com  
 **Disclaimer:** Provided without support or warranty  
 
 ---
 
 ## 📘 Overview
 
-This repository contains personal variations of SQL queries for exploring and analyzing data in **Anthology Illuminate** (formerly Blackboard Data). These queries are designed to support reporting, diagnostics, and insight generation across various aspects of the LMS.
+This repository contains personal variations of SQL queries for exploring and analyzing data in **Blackboard Illuminate**. These queries are designed to support reporting, diagnostics, and insight generation across various aspects of the LMS.
 
 > ⚠️ These examples are shared as-is and may require adaptation for your institution’s data model or permissions.
 
@@ -18,7 +18,7 @@ This repository contains personal variations of SQL queries for exploring and an
 
 ## 🔗 Helpful Resources
 
-Here are some useful links for working with **Anthology Illuminate**:
+Here are some useful links for working with **Illuminate**:
 
 - 🎓 [Introduction to Illuminate LMS Data Reporting](https://bbprofessionaldevelopment.blackboard.com/webapps/consulting-central/app/launch/TDMv2?locale=en_US&course=offerings/7942b7f3-a2ba-4ac4-8ede-8f8f9c025eb9)  
   Register and complete this Free Blackboard Professional Development Course.
@@ -49,4 +49,4 @@ This is a personal project and not actively maintained for public contributions.
 
 ## 📄 License
 
-These resources are provided **without warranty or support** and are intended for educational and exploratory use only. Anthology retains rights.
+These resources are provided **without warranty or support** and are intended for educational and exploratory use only. Blackboard retains rights.
