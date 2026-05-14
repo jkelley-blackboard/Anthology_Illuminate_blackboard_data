@@ -1,7 +1,7 @@
-# Anthology Illuminate — Snowflake Connection Information
+# Illuminate — Snowflake Connection Information
 ### How to Locate the Details Needed to Connect External Systems
 
-This guide walks through how to find your Snowflake connection details and service account credentials from within Anthology Illuminate. These values are required when connecting external tools such as BI platforms, data pipelines, or analytics applications.
+This guide walks through how to find your Snowflake connection details and service account credentials from within Illuminate. These values are required when connecting external tools such as BI platforms, data pipelines, or analytics applications.
 
 ---
 
