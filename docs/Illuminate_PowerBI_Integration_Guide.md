@@ -1,4 +1,4 @@
-# Anthology Illuminate → Microsoft Power BI Integration Guide
+# Blackboard Illuminate → Microsoft Power BI Integration Guide
 ### Snowflake Canonical Data Model — Power BI Connection
 
 ---
@@ -8,7 +8,7 @@
 Before beginning, ensure the following are in place:
 
 - Power BI Desktop installed (latest version recommended)
-- Access to Anthology Illuminate with an administrator or developer role
+- Access to Illuminate with an administrator or developer role
 - Service account credentials (username and password) for the Snowflake integration
 - The service account must be enabled in Illuminate Settings (confirmed in Step 1)
 
@@ -124,7 +124,7 @@ Service account passwords expire over time. Monitor the expiration date in Illum
 
 ### IP Address Restrictions
 
-If your institution has configured IP address restrictions on the Snowflake service account, ensure Power BI's outbound IP addresses are on the allowlist. Refer to the Anthology Illuminate documentation on [IP Address Restriction for Snowflake Service Accounts](https://help.anthology.com/illuminate/en/anthology-illuminate-developer/ip-address-restriction-for-snowflake-service-accounts.html) for details.
+If your institution has configured IP address restrictions on the Snowflake service account, ensure Power BI's outbound IP addresses are on the allowlist. Refer to the Illuminate documentation on [IP Address Restriction for Snowflake Service Accounts](https://help.anthology.com/illuminate/en/anthology-illuminate-developer/ip-address-restriction-for-snowflake-service-accounts.html) for details.
 
 ---
 
